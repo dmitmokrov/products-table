@@ -1,4 +1,7 @@
 import React from 'react';
+import Table from './table';
+import SearchForm from './search-form';
+// import Modal from './modal';
 
 const App = () => (
   <>
@@ -6,16 +9,7 @@ const App = () => (
       <div className="container">
         <section>
           <div className="page__table-actions table-actions">
-            <form>
-              <label className="visually-hidden" htmlFor="search"></label>
-              <input
-                className="search-input"
-                id="search"
-                type="text"
-                placeholder="Фильтр по подстроке в имени товара"
-              />
-              <button className="btn" type="submit">Искать</button>
-            </form>
+            <SearchForm />
             <button
               className="table-actions__add-btn btn"
               type="button"
@@ -24,49 +18,24 @@ const App = () => (
             </button>
           </div>
 
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td className="table__item-cell">
-                  <a href="#">Товар 1</a>
-                  <span className="table__item-count">5</span>
-                </td>
-                <td>12385</td>
-                <td>
-                  <p className="table__actions-wrapper">
-                    <button className="btn" type="button">Edit</button>
-                    <button className="btn" type="button">Delete</button>
-                  </p>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <Table />
         </section>
       </div>
     </div>
 
-    {/* <div className="modal">
-      <div className="modal__substrate"></div>
-      <div className="modal__content">
+    {/* <Modal>
+      <>
         <h2>Are you sure?</h2>
         <p>Are you sure you want to perform this action?</p>
         <p className="modal__actions-wrapper">
           <button className="btn modal__btn" type="button">Yes</button>
           <button className="btn modal__btn" type="button">No</button>
         </p>
-      </div>
-    </div> */}
+      </>
+    </Modal> */}
 
-    {/* <div className="modal">
-      <div className="modal__substrate"></div>
-      <div className="modal__content">
+    {/* <Modal>
+      <>
         <button className="modal__close-btn" type="button">
           <span className="visually-hidden">Close</span>
           ×
@@ -136,8 +105,8 @@ const App = () => (
             <button className="btn" type="submit">Add / Update</button>
           </form>
         </section>
-      </div>
-    </div> */}
+      </>
+    </Modal> */}
   </>
 );
 
