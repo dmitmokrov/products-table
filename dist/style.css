@@ -1,0 +1,176 @@
+:root {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.visually-hidden {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.page {
+  padding-top: 20px;
+}
+
+.page__table-actions {
+  margin-bottom: 30px;
+}
+
+.container {
+  width: 600px;
+  margin: 0 auto;
+}
+
+.table-actions {
+  display: flex;
+}
+
+.table-actions__add-btn {
+  margin-left: auto;
+}
+
+.search-input {
+  width: 300px;
+  height: 100%;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table__item-cell {
+  position: relative;
+}
+
+.table__item-count {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 5px;
+  border-radius: 10px;
+  background-color: #cccccc;
+}
+
+.table th,
+.table td {
+  padding: 15px 10px;
+  border: 1px solid #000000;
+}
+
+.table__actions-wrapper {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 0;
+}
+
+.btn {
+  display: inline-block;
+  padding: 5px 10px;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.modal__substrate {
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.modal__content {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  padding: 20px;
+  border: 2px solid #cccccc;
+  background-color: #ffffff;
+  text-align: center;
+}
+
+.modal__close-btn {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  width: 40px;
+  height: 40px;
+  border: 1px solid #000000;
+  border-radius: 3px;
+  font-size: 25px;
+  line-height: 1;
+}
+
+.modal__actions-wrapper {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.modal__btn {
+  min-width: 70px;
+}
+
+.add-update-form {
+  text-align-last: left;
+}
+
+.add-update-form__fieldset {
+  margin: 0;
+  padding: 0;
+  border: none;
+  text-align: left;
+}
+
+
+.select {
+  align-self: flex-start;
+}
+
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-wrapper input {
+  width: 250px;
+}
+
+.radio-checkbox-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.location {
+  display: flex;
+  justify-content: space-between;
+}
+
+.location__item {
+  width: 33%;
+  margin: 0;
+}
+
+.location__item:not(:first-child) {
+  border-left: 1px solid #000000;
+}
