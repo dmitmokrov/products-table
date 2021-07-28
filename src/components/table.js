@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import TableRow from './table-row';
 import PropTypes from 'prop-types';
 
-const Table = ({goods}) => (
+const Table = ({goods, showModal}) => (
   <table className="table">
     <thead>
       <tr>
@@ -14,7 +14,13 @@ const Table = ({goods}) => (
     </thead>
     <tbody>
       {
-        goods.map((good) => <TableRow good={good} key={good.id} />)
+        goods.map((good) => (
+          <TableRow
+            good={good}
+            key={good.id}
+            showModal={showModal}
+          />
+        ))
       }
     </tbody>
   </table>
@@ -35,6 +41,7 @@ Table.propTypes = {
       }),
     ]),
   })),
+  showModal: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({

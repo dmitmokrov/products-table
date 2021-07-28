@@ -1,9 +1,9 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {deleteGood} from '../store/actions';
+import {deleteGoodId} from '../store/actions';
 
-const TableRow = ({good, deleteGood}) => (
+const TableRow = ({good, showModal, deleteGoodId}) => (
   <tr>
     <td className="table__item-cell">
       <a href="#">{good.name}</a>
@@ -16,7 +16,10 @@ const TableRow = ({good, deleteGood}) => (
         <button
           className="btn"
           type="button"
-          onClick={() => deleteGood(good.id)}
+          onClick={() => {
+            showModal(true);
+            deleteGoodId(good.id);
+          }}
         >
           Delete
         </button>
@@ -40,12 +43,13 @@ TableRow.propTypes = {
       }),
     ]),
   }),
-  deleteGood: PropTypes.func,
+  showModal: PropTypes.func,
+  deleteGoodId: PropTypes.func,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  deleteGood(id) {
-    dispatch(deleteGood(id));
+  deleteGoodId(id) {
+    dispatch(deleteGoodId(id));
   },
 });
 

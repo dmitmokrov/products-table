@@ -1,4 +1,9 @@
 export const deleteGood = (id) => ({
-  type: 'delete',
+  type: 'deleteGood',
+  payload: id,
+});
+
+export const deleteGoodId = (id) => ({
+  type: 'deleteGoodId',
   payload: id,
 });
