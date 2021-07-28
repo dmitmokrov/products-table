@@ -3,11 +3,13 @@ import {connect} from 'react-redux';
 import Table from './table';
 import SearchForm from './search-form';
 import Modal from './modal';
+import AddGoodModal from './add-good-modal';
 import {deleteGood} from '../store/actions';
 import PropTypes from 'prop-types';
 
 const App = ({deletedGoodId, deleteGood}) => {
   const [isDeleteModalShown, setIsDeleteModalShown] = useState(false);
+  const [isAddModalShown, setIsAddModalShown] = useState(false);
 
   return (
     <>
@@ -19,12 +21,13 @@ const App = ({deletedGoodId, deleteGood}) => {
               <button
                 className="table-actions__add-btn btn"
                 type="button"
+                onClick={() => setIsAddModalShown(true)}
               >
                 Add New
               </button>
             </div>
 
-            <Table showModal={setIsDeleteModalShown}/>
+            <Table showModal={setIsDeleteModalShown} />
           </section>
         </div>
       </div>
@@ -48,79 +51,12 @@ const App = ({deletedGoodId, deleteGood}) => {
         </Modal>
       }
 
-      {/* <Modal>
-      <>
-        <button className="modal__close-btn" type="button">
-          <span className="visually-hidden">Close</span>
-          ×
-        </button>
-        <section>
-          <form className="add-update-form">
-            <p className="input-wrapper">
-              <label htmlFor="name">Name:</label>
-              <input id="name" type="text"></input>
-              <span></span>
-            </p>
-            <p className="input-wrapper">
-              <label htmlFor="email">Supplier email:</label>
-              <input id="email" type="email"></input>
-              <span></span>
-            </p>
-            <p className="input-wrapper">
-              <label htmlFor="count">Count:</label>
-              <input id="count" type="number"></input>
-            </p>
-            <p className="input-wrapper">
-              <label htmlFor="price">Price:</label>
-              <input id="price" type="text"></input>
-            </p>
-            <fieldset className="add-update-form__fieldset">
-              <legend>Delivery:</legend>
-              <div className="location">
-                <select className="location__item select">
-                  <option></option>
-                  <option>Страна</option>
-                  <option>Город</option>
-                </select>
-                <p className="location__item radio-checkbox-wrapper">
-                  <label>
-                    <input name="country" value="Россия" type="radio" />
-                    Россия
-                  </label>
-                  <label>
-                    <input name="country" value="США" type="radio" />
-                    США
-                  </label>
-                  <label>
-                    <input name="country" value="Япония" type="radio" />
-                    Япония
-                  </label>
-                </p>
-                <p className="location__item radio-checkbox-wrapper">
-                  <label>
-                    <input name="all" value="all" type="checkbox" />
-                    Select All
-                  </label>
-                  <label>
-                    <input name="Саратов" value="Саратов" type="checkbox" />
-                    Саратов
-                  </label>
-                  <label>
-                    <input name="Москва" value="Москва" type="checkbox" />
-                    Москва
-                  </label>
-                  <label>
-                    <input name="Питер" value="Питер" type="checkbox" />
-                    Питер
-                  </label>
-                </p>
-              </div>
-            </fieldset>
-            <button className="btn" type="submit">Add / Update</button>
-          </form>
-        </section>
-      </>
-    </Modal> */}
+      {
+        isAddModalShown &&
+        <Modal>
+          <AddGoodModal showModal={setIsAddModalShown} />
+        </Modal>
+      }
     </>
   );
 };

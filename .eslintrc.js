@@ -19,5 +19,10 @@ module.exports = {
   ],
   'rules': {
     'indent': ['error', 2],
+    'require-jsdoc': ['error', {
+      'require': {
+        'ClassDeclaration': false,
+      },
+    }],
   },
 };

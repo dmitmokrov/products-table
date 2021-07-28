@@ -3,6 +3,7 @@ import {goods} from '../../mock';
 const initialState = {
   goods,
   deletedGoodId: null,
+  newGood: {},
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -16,6 +17,11 @@ const rootReducer = (state = initialState, action) => {
     return {
       ...state,
       deletedGoodId: action.payload,
+    };
+  case 'addGood':
+    return {
+      ...state,
+      newGood: action.payload,
     };
   default:
     return state;
