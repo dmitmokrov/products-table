@@ -1,9 +1,10 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {deleteGoodId} from '../store/actions';
+import {editGoodId, deleteGoodId} from '../store/actions';
 
-const TableRow = ({good, showModal, deleteGoodId}) => (
+const TableRow = ({good, showEditModal, showDeleteModal,
+  editGoodId, deleteGoodId}) => (
   <tr>
     <td className="table__item-cell">
       <a href="#">{good.name}</a>
@@ -12,12 +13,21 @@ const TableRow = ({good, showModal, deleteGoodId}) => (
     <td>{good.price}</td>
     <td>
       <p className="table__actions-wrapper">
-        <button className="btn" type="button">Edit</button>
         <button
           className="btn"
           type="button"
           onClick={() => {
-            showModal(true);
+            showEditModal(true);
+            editGoodId(good.id);
+          }}
+        >
+          Edit
+        </button>
+        <button
+          className="btn"
+          type="button"
+          onClick={() => {
+            showDeleteModal(true);
             deleteGoodId(good.id);
           }}
         >
@@ -43,13 +53,18 @@ TableRow.propTypes = {
       }),
     ]),
   }),
-  showModal: PropTypes.func,
+  showEditModal: PropTypes.func,
+  showDeleteModal: PropTypes.func,
   deleteGoodId: PropTypes.func,
+  editGoodId: PropTypes.func,
 };
 
 const mapDispatchToProps = (dispatch) => ({
   deleteGoodId(id) {
     dispatch(deleteGoodId(id));
+  },
+  editGoodId(id) {
+    dispatch(editGoodId(id));
   },
 });
 

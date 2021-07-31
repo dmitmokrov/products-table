@@ -3,7 +3,7 @@ import {goods} from '../../mock';
 const initialState = {
   goods,
   deletedGoodId: null,
-  newGood: {},
+  editedGoodId: null,
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -18,10 +18,25 @@ const rootReducer = (state = initialState, action) => {
       ...state,
       deletedGoodId: action.payload,
     };
+  case 'editGoodId':
+    return {
+      ...state,
+      editedGoodId: action.payload,
+    };
+  case 'editGood':
+    const idx = state.goods.findIndex((good) => good.id === action.payload.id);
+    return {
+      ...state,
+      goods: [
+        ...state.goods.slice(0, idx),
+        action.payload,
+        ...state.goods.slice(idx + 1),
+      ],
+    };
   case 'addGood':
     return {
       ...state,
-      newGood: action.payload,
+      goods: [...state.goods, action.payload],
     };
   default:
     return state;

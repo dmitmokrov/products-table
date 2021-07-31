@@ -1,20 +1,35 @@
 import React, {PureComponent} from 'react';
 import {CountryCities} from '../const';
+import {nanoid} from 'nanoid';
+import {connect} from 'react-redux';
+import {addGood, editGood} from '../store/actions';
 import PropTypes from 'prop-types';
 
 class AddGoodModal extends PureComponent {
   constructor(props) {
     super(props);
+    const {
+      id,
+      name,
+      email,
+      count,
+      price,
+      delivery,
+      country,
+      city,
+    } = this.props.good;
+
     this.state = {
-      name: '',
+      id: id || nanoid(),
+      name: name || '',
       nameError: '',
-      email: '',
+      email: email || '',
       emailError: '',
-      count: 0,
-      price: 0,
-      delivery: 'no',
-      country: '',
-      city: [],
+      count: count || 0,
+      price: price || 0,
+      delivery: delivery || 'no',
+      country: country || '',
+      city: city || [],
       selectAllCities: false,
     };
 
@@ -32,6 +47,8 @@ class AddGoodModal extends PureComponent {
     this.handleCountBlur = this.handleCountBlur.bind(this);
     this.handlePriceFocus = this.handlePriceFocus.bind(this);
     this.handlePriceBlur = this.handlePriceBlur.bind(this);
+
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleNameChange(evt) {
@@ -87,7 +104,7 @@ class AddGoodModal extends PureComponent {
   }
 
   handleCountBlur(evt) {
-    evt.target.value = parseInt(evt.target.value, 10) || '';
+    evt.target.value = parseInt(evt.target.value, 10) || 0;
   }
 
   handlePriceChange(evt) {
@@ -98,13 +115,17 @@ class AddGoodModal extends PureComponent {
   }
 
   handlePriceFocus(evt) {
-    evt.target.value = this.state.price ? this.state.price : '';
+    evt.target.value = this.state.price;
   }
 
   handlePriceBlur(evt) {
-    evt.target.value = '$' + new Intl.NumberFormat({
+    evt.target.value = this.formatPrice(evt.target.value);
+  }
+
+  formatPrice(number) {
+    return '$' + new Intl.NumberFormat({
       style: 'currency', currency: 'USD',
-    }).format(this.state.price);
+    }).format(number);
   }
 
   handleDeliveryChange(evt) {
@@ -165,6 +186,25 @@ class AddGoodModal extends PureComponent {
     });
   }
 
+  handleSubmit(evt) {
+    evt.preventDefault();
+    const {showModal, addGood, editGood, good} = this.props;
+    const {id, name, email, count, price, delivery, country, city} = this.state;
+    const editedGood = {
+      id,
+      name,
+      email,
+      count,
+      price,
+      delivery,
+      country,
+      city,
+    };
+
+    good.id ? editGood(editedGood) : addGood(editedGood);
+    showModal(false);
+  }
+
   componentDidUpdate() {
     if (
       this.state.country &&
@@ -180,15 +220,22 @@ class AddGoodModal extends PureComponent {
   render() {
     const {showModal} = this.props;
     const {
+      name,
       nameError,
+      email,
       emailError,
+      count,
+      price,
       delivery,
       country,
+      city,
       selectAllCities,
     } = this.state;
     const hasDelivery = delivery === 'yes' ? true : false;
     const nameClassname = nameError ? 'input error' : 'input';
     const emailClassname = emailError ? 'input error' : 'input';
+    const isSubmitButtonDisabled = nameError || emailError || !name || !email ||
+      !count || !price || delivery === 'yes' && (!country || !city.length);
 
     return (
       <>
@@ -201,7 +248,7 @@ class AddGoodModal extends PureComponent {
           ×
         </button>
         <section>
-          <form className="add-update-form">
+          <form className="add-update-form" onSubmit={this.handleSubmit}>
             <div className="input-wrapper">
               <label htmlFor="name">Name:</label>
               <p>
@@ -210,6 +257,7 @@ class AddGoodModal extends PureComponent {
                   id="name"
                   type="text"
                   maxLength="15"
+                  value={name}
                   onChange={this.handleNameChange}
                   onBlur={this.handleNameBlur}
                 />
@@ -223,6 +271,7 @@ class AddGoodModal extends PureComponent {
                   className={emailClassname}
                   id="email"
                   type="email"
+                  value={email}
                   onChange={this.handleEmailChange}
                   onBlur={this.handleEmailBlur}
                 />
@@ -235,6 +284,7 @@ class AddGoodModal extends PureComponent {
                 className="input"
                 id="count"
                 type="number"
+                value={count}
                 onChange={this.handleCountChange}
                 onBlur={this.handleCountBlur}
               />
@@ -245,6 +295,7 @@ class AddGoodModal extends PureComponent {
                 className={'input'}
                 id="price"
                 type="text"
+                value={price}
                 onChange={this.handlePriceChange}
                 onFocus={this.handlePriceFocus}
                 onBlur={this.handlePriceBlur}
@@ -272,6 +323,7 @@ class AddGoodModal extends PureComponent {
                             value={country}
                             type="radio"
                             onChange={this.handleCountryChange}
+                            checked={this.state.country === country}
                           />
                           {country}
                         </label>
@@ -310,7 +362,13 @@ class AddGoodModal extends PureComponent {
                 }
               </div>
             </fieldset>
-            <button className="btn" type="submit">Add / Update</button>
+            <button
+              className="btn"
+              type="submit"
+              disabled={isSubmitButtonDisabled}
+            >
+              Add / Update
+            </button>
           </form>
         </section>
       </>
@@ -320,6 +378,19 @@ class AddGoodModal extends PureComponent {
 
 AddGoodModal.propTypes = {
   showModal: PropTypes.func,
+  addGood: PropTypes.func,
+  editGood: PropTypes.func,
+  good: PropTypes.object,
 };
 
-export default AddGoodModal;
+const mapDispatchToProps = (dispatch) => ({
+  addGood(good) {
+    dispatch(addGood(good));
+  },
+  editGood(good) {
+    dispatch(editGood(good));
+  },
+});
+
+export {AddGoodModal};
+export default connect(null, mapDispatchToProps)(AddGoodModal);

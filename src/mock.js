@@ -5,7 +5,9 @@ export const goods = [
     email: 'test@mail.ru',
     price: 1034500,
     count: 5,
-    delivery: '',
+    delivery: 'no',
+    country: '',
+    city: '',
   },
   {
     id: '2',
@@ -13,10 +15,9 @@ export const goods = [
     email: 'test2@mail.ru',
     price: 1234000,
     count: 4,
-    delivery: {
-      country: 'Россия',
-      cities: ['Москва'],
-    },
+    delivery: 'yes',
+    country: 'Россия',
+    city: ['Москва'],
   },
   {
     id: '3',
@@ -24,9 +25,8 @@ export const goods = [
     email: 'test3@mail.ru',
     price: 1567000,
     count: 10,
-    delivery: {
-      country: 'США',
-      cities: ['Вашингтон', 'Лос-Анджелес'],
-    },
+    delivery: 'yes',
+    country: 'США',
+    city: ['Вашингтон', 'Лос-Анджелес'],
   },
 ];

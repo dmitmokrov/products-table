@@ -4,12 +4,12 @@ import Table from './table';
 import SearchForm from './search-form';
 import Modal from './modal';
 import AddGoodModal from './add-good-modal';
-import {deleteGood} from '../store/actions';
+import {editGoodId, deleteGood} from '../store/actions';
 import PropTypes from 'prop-types';
 
-const App = ({deletedGoodId, deleteGood}) => {
+const App = ({editedGood, editGoodId, deletedGoodId, deleteGood}) => {
   const [isDeleteModalShown, setIsDeleteModalShown] = useState(false);
-  const [isAddModalShown, setIsAddModalShown] = useState(false);
+  const [isAddOrEditModalShown, setIsAddOrEditModalShown] = useState(false);
 
   return (
     <>
@@ -21,13 +21,19 @@ const App = ({deletedGoodId, deleteGood}) => {
               <button
                 className="table-actions__add-btn btn"
                 type="button"
-                onClick={() => setIsAddModalShown(true)}
+                onClick={() => {
+                  setIsAddOrEditModalShown(true);
+                  editGoodId(null);
+                }}
               >
                 Add New
               </button>
             </div>
 
-            <Table showModal={setIsDeleteModalShown} />
+            <Table
+              showEditModal={setIsAddOrEditModalShown}
+              showDeleteModal={setIsDeleteModalShown}
+            />
           </section>
         </div>
       </div>
@@ -52,9 +58,12 @@ const App = ({deletedGoodId, deleteGood}) => {
       }
 
       {
-        isAddModalShown &&
+        isAddOrEditModalShown &&
         <Modal>
-          <AddGoodModal showModal={setIsAddModalShown} />
+          <AddGoodModal
+            good={editedGood}
+            showModal={setIsAddOrEditModalShown}
+          />
         </Modal>
       }
     </>
@@ -62,6 +71,7 @@ const App = ({deletedGoodId, deleteGood}) => {
 };
 
 const mapStateToProps = (state) => ({
+  editedGood: state.goods.find((good) => good.id === state.editedGoodId) || {},
   deletedGoodId: state.deletedGoodId,
 });
 
@@ -69,10 +79,15 @@ const mapDispatchToProps = (dispatch) => ({
   deleteGood(id) {
     dispatch(deleteGood(id));
   },
+  editGoodId(id) {
+    dispatch(editGoodId(id));
+  },
 });
 
 App.propTypes = {
+  editedGood: PropTypes.object,
   deletedGoodId: PropTypes.string,
+  editGoodId: PropTypes.func,
   deleteGood: PropTypes.func,
 };
 
