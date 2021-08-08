@@ -5,6 +5,9 @@ const initialState = {
   deletedGoodId: null,
   editedGoodId: null,
   isReadOnly: false,
+  sortType: null,
+  nameSortDirection: false,
+  priceSortDirection: false,
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -43,6 +46,21 @@ const rootReducer = (state = initialState, action) => {
     return {
       ...state,
       isReadOnly: action.payload,
+    };
+  case 'changeSortType':
+    return {
+      ...state,
+      sortType: action.payload,
+    };
+  case 'changeNameSortDirection':
+    return {
+      ...state,
+      nameSortDirection: !state.nameSortDirection,
+    };
+  case 'changePriceSortDirection':
+    return {
+      ...state,
+      priceSortDirection: !state.priceSortDirection,
     };
   default:
     return state;

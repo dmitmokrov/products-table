@@ -27,3 +27,16 @@ export const changeReadOnlyStatus = (status) => ({
   type: 'changeReadOnlyStatus',
   payload: status,
 });
+
+export const changeSortType = (sortType) => ({
+  type: 'changeSortType',
+  payload: sortType,
+});
+
+export const changeNameSortDirection = () => ({
+  type: 'changeNameSortDirection',
+});
+
+export const changePriceSortDirection = () => ({
+  type: 'changePriceSortDirection',
+});

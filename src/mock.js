@@ -10,16 +10,6 @@ export const goods = [
     city: '',
   },
   {
-    id: '2',
-    name: 'Товар 2',
-    email: 'test2@mail.ru',
-    price: 1234000,
-    count: 4,
-    delivery: 'yes',
-    country: 'Россия',
-    city: ['Москва'],
-  },
-  {
     id: '3',
     name: 'Товар 3',
     email: 'test3@mail.ru',
@@ -28,5 +18,15 @@ export const goods = [
     delivery: 'yes',
     country: 'США',
     city: ['Вашингтон', 'Лос-Анджелес'],
+  },
+  {
+    id: '2',
+    name: 'Товар 2',
+    email: 'test2@mail.ru',
+    price: 1234000,
+    count: 4,
+    delivery: 'yes',
+    country: 'Россия',
+    city: ['Москва'],
   },
 ];
