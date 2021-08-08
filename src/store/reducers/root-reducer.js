@@ -4,6 +4,7 @@ const initialState = {
   goods,
   deletedGoodId: null,
   editedGoodId: null,
+  isReadOnly: false,
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -37,6 +38,11 @@ const rootReducer = (state = initialState, action) => {
     return {
       ...state,
       goods: [...state.goods, action.payload],
+    };
+  case 'changeReadOnlyStatus':
+    return {
+      ...state,
+      isReadOnly: action.payload,
     };
   default:
     return state;

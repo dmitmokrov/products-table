@@ -22,3 +22,8 @@ export const addGood = (good) => ({
   type: 'addGood',
   payload: good,
 });
+
+export const changeReadOnlyStatus = (status) => ({
+  type: 'changeReadOnlyStatus',
+  payload: status,
+});

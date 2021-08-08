@@ -7,7 +7,13 @@ import AddGoodModal from './add-good-modal';
 import {editGoodId, deleteGood} from '../store/actions';
 import PropTypes from 'prop-types';
 
-const App = ({editedGood, editGoodId, deletedGoodId, deleteGood}) => {
+const App = ({
+  editedGood,
+  editGoodId,
+  deletedGoodId,
+  deleteGood,
+  isReadOnly,
+}) => {
   const [isDeleteModalShown, setIsDeleteModalShown] = useState(false);
   const [isAddOrEditModalShown, setIsAddOrEditModalShown] = useState(false);
 
@@ -62,6 +68,7 @@ const App = ({editedGood, editGoodId, deletedGoodId, deleteGood}) => {
         <Modal>
           <AddGoodModal
             good={editedGood}
+            isReadOnly={isReadOnly}
             showModal={setIsAddOrEditModalShown}
           />
         </Modal>
@@ -71,8 +78,9 @@ const App = ({editedGood, editGoodId, deletedGoodId, deleteGood}) => {
 };
 
 const mapStateToProps = (state) => ({
-  editedGood: state.goods.find((good) => good.id === state.editedGoodId) || {},
+  editedGood: state.goods.find((good) => good.id === state.editedGoodId) || { },
   deletedGoodId: state.deletedGoodId,
+  isReadOnly: state.isReadOnly,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -89,6 +97,7 @@ App.propTypes = {
   deletedGoodId: PropTypes.string,
   editGoodId: PropTypes.func,
   deleteGood: PropTypes.func,
+  isReadOnly: PropTypes.bool,
 };
 
 export {App};

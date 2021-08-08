@@ -1,13 +1,18 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {editGoodId, deleteGoodId} from '../store/actions';
+import {editGoodId, deleteGoodId, changeReadOnlyStatus} from '../store/actions';
 
 const TableRow = ({good, showEditModal, showDeleteModal,
-  editGoodId, deleteGoodId}) => (
+  editGoodId, deleteGoodId, changeReadOnlyStatus}) => (
   <tr>
     <td className="table__item-cell">
-      <a href="#">{good.name}</a>
+      <a href="#" onClick={(evt) => {
+        evt.preventDefault();
+        changeReadOnlyStatus(true);
+        showEditModal(true);
+        editGoodId(good.id);
+      }}>{good.name}</a>
       <span className="table__item-count">{good.count}</span>
     </td>
     <td>{good.price}</td>
@@ -17,6 +22,7 @@ const TableRow = ({good, showEditModal, showDeleteModal,
           className="btn"
           type="button"
           onClick={() => {
+            changeReadOnlyStatus(false);
             showEditModal(true);
             editGoodId(good.id);
           }}
@@ -57,6 +63,7 @@ TableRow.propTypes = {
   showDeleteModal: PropTypes.func,
   deleteGoodId: PropTypes.func,
   editGoodId: PropTypes.func,
+  changeReadOnlyStatus: PropTypes.func,
 };
 
 const mapDispatchToProps = (dispatch) => ({
@@ -65,6 +72,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   editGoodId(id) {
     dispatch(editGoodId(id));
+  },
+  changeReadOnlyStatus(status) {
+    dispatch(changeReadOnlyStatus(status));
   },
 });
 

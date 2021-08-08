@@ -218,7 +218,7 @@ class AddGoodModal extends PureComponent {
   }
 
   render() {
-    const {showModal} = this.props;
+    const {isReadOnly, showModal} = this.props;
     const {
       name,
       nameError,
@@ -260,6 +260,7 @@ class AddGoodModal extends PureComponent {
                   value={name}
                   onChange={this.handleNameChange}
                   onBlur={this.handleNameBlur}
+                  readOnly={isReadOnly}
                 />
                 <span>{nameError}</span>
               </p>
@@ -274,6 +275,7 @@ class AddGoodModal extends PureComponent {
                   value={email}
                   onChange={this.handleEmailChange}
                   onBlur={this.handleEmailBlur}
+                  readOnly={isReadOnly}
                 />
                 <span>{emailError}</span>
               </p>
@@ -287,6 +289,7 @@ class AddGoodModal extends PureComponent {
                 value={count}
                 onChange={this.handleCountChange}
                 onBlur={this.handleCountBlur}
+                readOnly={isReadOnly}
               />
             </p>
             <p className="input-wrapper">
@@ -299,6 +302,7 @@ class AddGoodModal extends PureComponent {
                 onChange={this.handlePriceChange}
                 onFocus={this.handlePriceFocus}
                 onBlur={this.handlePriceBlur}
+                readOnly={isReadOnly}
               />
             </p>
             <fieldset className="add-update-form__fieldset">
@@ -308,6 +312,7 @@ class AddGoodModal extends PureComponent {
                   className="location__item select"
                   value={delivery}
                   onChange={this.handleDeliveryChange}
+                  disabled={isReadOnly}
                 >
                   <option value="yes">Yes</option>
                   <option value="no">No</option>
@@ -324,6 +329,7 @@ class AddGoodModal extends PureComponent {
                             type="radio"
                             onChange={this.handleCountryChange}
                             checked={this.state.country === country}
+                            disabled={isReadOnly}
                           />
                           {country}
                         </label>
@@ -341,6 +347,7 @@ class AddGoodModal extends PureComponent {
                         type="checkbox"
                         onChange={this.handleSelectAllChange}
                         checked={selectAllCities}
+                        disabled={isReadOnly}
                       />
                       Select All
                     </label>
@@ -353,6 +360,7 @@ class AddGoodModal extends PureComponent {
                             type="checkbox"
                             onChange={this.handleCityChange}
                             checked={this.state.city.includes(city)}
+                            disabled={isReadOnly}
                           />
                           {city}
                         </label>
@@ -362,13 +370,16 @@ class AddGoodModal extends PureComponent {
                 }
               </div>
             </fieldset>
-            <button
-              className="btn"
-              type="submit"
-              disabled={isSubmitButtonDisabled}
-            >
-              Add / Update
-            </button>
+            {
+              !isReadOnly &&
+              <button
+                className="btn"
+                type="submit"
+                disabled={isSubmitButtonDisabled}
+              >
+                Add / Update
+              </button>
+            }
           </form>
         </section>
       </>
@@ -381,6 +392,7 @@ AddGoodModal.propTypes = {
   addGood: PropTypes.func,
   editGood: PropTypes.func,
   good: PropTypes.object,
+  isReadOnly: PropTypes.bool,
 };
 
 const mapDispatchToProps = (dispatch) => ({
