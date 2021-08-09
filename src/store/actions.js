@@ -1,42 +1,49 @@
+import {Action} from '../const';
+
 export const deleteGood = (id) => ({
-  type: 'deleteGood',
+  type: Action.DELETE_GOOD,
   payload: id,
 });
 
 export const deleteGoodId = (id) => ({
-  type: 'deleteGoodId',
+  type: Action.DELETE_GOOD_ID,
   payload: id,
 });
 
 export const editGood = (id) => ({
-  type: 'editGood',
+  type: Action.EDIT_GOOD,
   payload: id,
 });
 
 export const editGoodId = (id) => ({
-  type: 'editGoodId',
+  type: Action.EDIT_GOOD_ID,
   payload: id,
 });
 
 export const addGood = (good) => ({
-  type: 'addGood',
+  type: Action.ADD_GOOD,
   payload: good,
 });
 
 export const changeReadOnlyStatus = (status) => ({
-  type: 'changeReadOnlyStatus',
+  type: Action.CHANGE_READONLY_STATUS,
   payload: status,
 });
 
 export const changeSortType = (sortType) => ({
-  type: 'changeSortType',
+  type: Action.CHANGE_SORT_TYPE,
   payload: sortType,
 });
 
 export const changeNameSortDirection = () => ({
-  type: 'changeNameSortDirection',
+  type: Action.CHANGE_NAME_SORT_DIRECTION,
 });
 
 export const changePriceSortDirection = () => ({
-  type: 'changePriceSortDirection',
+  type: Action.CHANGE_PRICE_SORT_DIRECTION,
+});
+
+export const changeSearchedGoodName = (searchedGoodName) => ({
+  type: Action.CHANGE_SEARCHED_GOOD_NAME,
+  payload: searchedGoodName,
 });

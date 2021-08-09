@@ -1,6 +1,8 @@
+import {SortType} from './const';
+
 export const getSortedGoods = (goods, sortType, sortDirection) => {
   return goods.sort((a, b) => {
-    if (sortType === 'name') {
+    if (sortType === SortType.NAME) {
       if (sortDirection) {
         if (a.name.toLowerCase() < b.name.toLowerCase()) {
           return -1;
@@ -24,7 +26,7 @@ export const getSortedGoods = (goods, sortType, sortDirection) => {
       return 0;
     }
 
-    if (sortType === 'price') {
+    if (sortType === SortType.PRICE) {
       if (sortDirection) {
         return a.price - b.price;
       }
