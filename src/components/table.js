@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {useLocation} from 'react-router-dom';
 import TableRow from './table-row';
 import {
   changeSortType,
@@ -7,12 +8,12 @@ import {
   changePriceSortDirection,
 } from '../store/actions';
 import {getSortedGoods} from '../utils';
+import {SortType} from '../const';
 import PropTypes from 'prop-types';
 
 const Table = ({
   goods,
   sortType,
-  sortTypeDirection,
   nameSortDirection,
   priceSortDirection,
   showEditModal,
@@ -21,8 +22,14 @@ const Table = ({
   changeNameSortDirection,
   changePriceSortDirection,
 }) => {
+  const searchedGoodName = new URLSearchParams(useLocation().search)
+    .get('search') || '';
+  const searchedGoods = goods.filter((good) => good.name.toLowerCase()
+    .includes(searchedGoodName.toLowerCase()));
+  const sortTypeDirection = sortType === SortType.NAME ?
+    nameSortDirection : priceSortDirection;
   const sortedGoods = getSortedGoods(
-    goods,
+    searchedGoods,
     sortType,
     sortTypeDirection,
   );
@@ -32,14 +39,14 @@ const Table = ({
       <thead>
         <tr>
           <th onClick={() => {
-            if (sortType !== 'name') {
-              changeSortType('name');
+            if (sortType !== SortType.NAME) {
+              changeSortType(SortType.NAME);
             }
             changeNameSortDirection();
           }}>Name {nameSortDirection ? '▲' : '▼'}</th>
           <th onClick={() => {
-            if (sortType !== 'price') {
-              changeSortType('price');
+            if (sortType !== SortType.PRICE) {
+              changeSortType(SortType.PRICE);
             }
             changePriceSortDirection();
           }}>Price {priceSortDirection ? '▲' : '▼'}</th>
@@ -91,7 +98,6 @@ Table.propTypes = {
 const mapStateToProps = (state) => ({
   goods: state.goods,
   sortType: state.sortType,
-  sortTypeDirection: state[state.sortType + 'SortDirection'],
   nameSortDirection: state.nameSortDirection,
   priceSortDirection: state.priceSortDirection,
 });

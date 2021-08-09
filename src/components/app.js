@@ -1,24 +1,24 @@
 import React, {useState} from 'react';
 import {connect} from 'react-redux';
+import {BrowserRouter as Router} from 'react-router-dom';
 import Table from './table';
 import SearchForm from './search-form';
 import Modal from './modal';
 import AddGoodModal from './add-good-modal';
-import {editGoodId, deleteGood} from '../store/actions';
+import DeleteGoodModal from './delete-good-modal';
+import {editGoodId, changeReadOnlyStatus} from '../store/actions';
 import PropTypes from 'prop-types';
 
 const App = ({
   editedGood,
   editGoodId,
-  deletedGoodId,
-  deleteGood,
   isReadOnly,
 }) => {
   const [isDeleteModalShown, setIsDeleteModalShown] = useState(false);
   const [isAddOrEditModalShown, setIsAddOrEditModalShown] = useState(false);
 
   return (
-    <>
+    <Router>
       <div className="page">
         <div className="container">
           <section>
@@ -28,6 +28,7 @@ const App = ({
                 className="table-actions__add-btn btn"
                 type="button"
                 onClick={() => {
+                  changeReadOnlyStatus(false);
                   setIsAddOrEditModalShown(true);
                   editGoodId(null);
                 }}
@@ -35,7 +36,6 @@ const App = ({
                 Add New
               </button>
             </div>
-
             <Table
               showEditModal={setIsAddOrEditModalShown}
               showDeleteModal={setIsDeleteModalShown}
@@ -47,19 +47,9 @@ const App = ({
       {
         isDeleteModalShown &&
         <Modal>
-          <>
-            <h2>Are you sure?</h2>
-            <p>Are you sure you want to perform this action?</p>
-            <p className="modal__actions-wrapper">
-              <button className="btn modal__btn" type="button" onClick={() => {
-                setIsDeleteModalShown(false);
-                deleteGood(deletedGoodId);
-              }}>Yes</button>
-              <button className="btn modal__btn" type="button" onClick={() => {
-                setIsDeleteModalShown(false);
-              }}>No</button>
-            </p>
-          </>
+          <DeleteGoodModal
+            showModal={setIsDeleteModalShown}
+          />
         </Modal>
       }
 
@@ -73,7 +63,7 @@ const App = ({
           />
         </Modal>
       }
-    </>
+    </Router>
   );
 };
 
@@ -84,19 +74,19 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  deleteGood(id) {
-    dispatch(deleteGood(id));
-  },
   editGoodId(id) {
     dispatch(editGoodId(id));
+  },
+  changeReadOnlyStatus(status) {
+    dispatch(changeReadOnlyStatus(status));
   },
 });
 
 App.propTypes = {
   editedGood: PropTypes.object,
-  deletedGoodId: PropTypes.string,
   editGoodId: PropTypes.func,
   deleteGood: PropTypes.func,
+  changeReadOnlyStatus: PropTypes.func,
   isReadOnly: PropTypes.bool,
 };
 
