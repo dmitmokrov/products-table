@@ -12,6 +12,7 @@ import PropTypes from 'prop-types';
 const App = ({
   editedGood,
   editGoodId,
+  changeReadOnlyStatus,
   isReadOnly,
 }) => {
   const [isDeleteModalShown, setIsDeleteModalShown] = useState(false);
@@ -85,7 +86,6 @@ const mapDispatchToProps = (dispatch) => ({
 App.propTypes = {
   editedGood: PropTypes.object,
   editGoodId: PropTypes.func,
-  deleteGood: PropTypes.func,
   changeReadOnlyStatus: PropTypes.func,
   isReadOnly: PropTypes.bool,
 };
