@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Modal = ({children}) => (
-  <div className="modal">
+const Modal = ({className, children}) => (
+  <div className={'modal ' + className}>
     <div className="modal__substrate"></div>
     <div className="modal__content">
       {children}
@@ -11,6 +11,7 @@ const Modal = ({children}) => (
 );
 
 Modal.propTypes = {
+  className: PropTypes.string,
   children: PropTypes.element,
 };
 

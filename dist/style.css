@@ -86,11 +86,16 @@ body {
 }
 
 .modal {
+  display: none;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
+}
+
+.modal.show {
+  display: block;
 }
 
 .modal__substrate {
@@ -168,6 +173,7 @@ body {
 .location {
   display: flex;
   justify-content: space-between;
+  margin: 1em 0;
 }
 
 .location__item {
@@ -177,4 +183,8 @@ body {
 
 .location__item:not(:first-child) {
   border-left: 1px solid #000000;
+}
+
+.location__error {
+  color: #ff0000;
 }

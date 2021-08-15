@@ -12,8 +12,8 @@ const SearchForm = () => {
   }, [searchedStrQueryParameter]);
 
   return (
-    <form onSubmit={(evt) => {
-      evt.preventDefault();
+    <form onSubmit={(event) => {
+      event.preventDefault();
       history.push(`?search=${searchStr}`);
     }}>
       <label className="visually-hidden" htmlFor="search"></label>
@@ -23,7 +23,7 @@ const SearchForm = () => {
         type="text"
         placeholder="Фильтр по подстроке в имени товара"
         value={searchStr}
-        onChange={(evt) => setSearchStr(evt.target.value)}
+        onChange={(event) => setSearchStr(event.target.value)}
       />
       <button className="btn" type="submit">Искать</button>
     </form>

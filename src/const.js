@@ -21,3 +21,23 @@ export const Action = {
   CHANGE_PRICE_SORT_DIRECTION: 'CHANGE_PRICE_SORT_DIRECTION',
   CHANGE_SEARCHED_GOOD_NAME: 'CHANGE_SEARCHED_GOOD_NAME',
 };
+
+export const ValidationError = {
+  NAME: 'Имя не может быть пустым',
+  EMAIL: 'Недопустимый email',
+  COUNT: 'Поле не может быть пустым',
+  PRICE: 'Поле не может быть пустым',
+  DELIVERY: 'Выберите страну и город',
+};
+
+export const RegExp = {
+  EMAIL: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g,
+  NUMBER: /[^\d\.]/g,
+};
+
+export const DeliveryStatus = {
+  YES: 'yes',
+  NO: 'no',
+};
+
+export const FormFields = ['name', 'email', 'count', 'price'];

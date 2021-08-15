@@ -7,8 +7,8 @@ const TableRow = ({good, showEditModal, showDeleteModal,
   editGoodId, deleteGoodId, changeReadOnlyStatus}) => (
   <tr>
     <td className="table__item-cell">
-      <a href="#" onClick={(evt) => {
-        evt.preventDefault();
+      <a href="#" onClick={(event) => {
+        event.preventDefault();
         changeReadOnlyStatus(true);
         showEditModal(true);
         editGoodId(good.id);

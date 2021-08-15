@@ -25,6 +25,12 @@ export const addGood = (good) => ({
   payload: good,
 });
 
+export const addGoodAsync = (good) => {
+  return (dispatch) => {
+    setTimeout(() => dispatch(addGood(good)), 2000);
+  };
+};
+
 export const changeReadOnlyStatus = (status) => ({
   type: Action.CHANGE_READONLY_STATUS,
   payload: status,

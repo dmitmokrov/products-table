@@ -45,31 +45,26 @@ const App = ({
         </div>
       </div>
 
-      {
-        isDeleteModalShown &&
-        <Modal>
-          <DeleteGoodModal
-            showModal={setIsDeleteModalShown}
-          />
-        </Modal>
-      }
+      <Modal className={isDeleteModalShown ? 'show' : ''}>
+        <DeleteGoodModal
+          showModal={setIsDeleteModalShown}
+        />
+      </Modal>
 
-      {
-        isAddOrEditModalShown &&
-        <Modal>
-          <AddGoodModal
-            good={editedGood}
-            isReadOnly={isReadOnly}
-            showModal={setIsAddOrEditModalShown}
-          />
-        </Modal>
-      }
+      <Modal className={isAddOrEditModalShown ? 'show' : ''}>
+        <AddGoodModal
+          good={editedGood}
+          isReadOnly={isReadOnly}
+          showModal={setIsAddOrEditModalShown}
+          key={editedGood.id ? JSON.stringify(editedGood.id) : 'new'}
+        />
+      </Modal>
     </Router>
   );
 };
 
 const mapStateToProps = (state) => ({
-  editedGood: state.goods.find((good) => good.id === state.editedGoodId) || { },
+  editedGood: state.goods.find((good) => good.id === state.editedGoodId) || {},
   deletedGoodId: state.deletedGoodId,
   isReadOnly: state.isReadOnly,
 });

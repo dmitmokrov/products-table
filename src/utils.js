@@ -2,25 +2,15 @@ import {SortType} from './const';
 
 export const getSortedGoods = (goods, sortType, sortDirection) => {
   return goods.sort((a, b) => {
+    const nameA = a.name.toLowerCase();
+    const nameB = b.name.toLowerCase();
     if (sortType === SortType.NAME) {
-      if (sortDirection) {
-        if (a.name.toLowerCase() < b.name.toLowerCase()) {
-          return -1;
-        }
-
-        if (a.name.toLowerCase() > b.name.toLowerCase()) {
-          return 1;
-        }
-
-        return 0;
+      if (nameA < nameB) {
+        return sortDirection ? -1 : 1;
       }
 
-      if (a.name.toLowerCase() < b.name.toLowerCase()) {
-        return 1;
-      }
-
-      if (a.name.toLowerCase() > b.name.toLowerCase()) {
-        return -1;
+      if (nameA > nameB) {
+        return sortDirection ? 1 : -1;
       }
 
       return 0;
@@ -34,4 +24,10 @@ export const getSortedGoods = (goods, sortType, sortDirection) => {
       return b.price - a.price;
     }
   });
+};
+
+export const formatPrice = (number) => {
+  return '$' + new Intl.NumberFormat({
+    style: 'currency', currency: 'USD',
+  }).format(number);
 };
